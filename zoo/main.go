@@ -11,6 +11,8 @@ import (
 
 func main() {
 	// 同パッケージであれば、別ファイルに分割していてもパッケージ名の指定は必要ない
+	// go run main.goではAppName()は未定義とエラーになる
+	// なので、'go run main.go app.go' or 'go run *.go'を実行する
 	fmt.Println(AppName())
 
 	fmt.Println(animals.ElephantFeed())
