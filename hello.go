@@ -11,6 +11,12 @@ import (
 // main関数はGoのエントリーポイント
 func main() {
 
+	a := [3]string{
+		"Yamada",
+		"Sato",
+		"Suzuki",
+	}
+
 	// 文字列を改行コード付きで標準出力
-	fmt.Println("Hello, World!")
+	fmt.Println(a)
 }
