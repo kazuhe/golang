@@ -38,6 +38,15 @@ a := [3]string{
 Goには標準でパッケージのテスト機能が組み込まれている。  
 `***_test.go`のファイルはテストの為の特別なファイルとして扱われる。
 
+## 定義済み識別子
+| 識別子の種類 | 識別子 |
+----|---- 
+| 型 | bool, byte, complex64, complex128, error, float32, float64, int, int8, int16, int32, int64, rune, string, uint, uint8, uint16, uint32, uint64, uintptr |
+| 定数 | true, false, iota |
+|ゼロ値 | nil |
+|関数 |	append, cap, close, complex, copy, delete, imag, len, make, new, panic, print, println, real, recover |
+
+
 ## Goが認識するファイル
 | 拡張子 | 内容 |
 ----|---- 
