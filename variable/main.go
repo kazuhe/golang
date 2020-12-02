@@ -4,8 +4,21 @@ import (
 	"fmt"
 )
 
+/*
+* パッケージ変数
+ */
+// Goは関数の中で定義された変数は「ローカル変数」
+// 関数の外で定義された変数は「パッケージ変数」
+// packageVariable := 100 ←暗黙的な変数定義は関数外では不可能
+var packageVariable = 100
+
 func main() {
 	// 変数は大きく分けて「値型」「参照型」「ポインタ型」の3種類
+	// Goは変数の参照チェックが厳密で、参照されていない変数があるとコンパイルエラーとなる
+
+	// パッケージ変数に値を代入
+	packageVariable = packageVariable + 1
+	fmt.Println(packageVariable)
 
 	/*
 	* 明示的な定義
