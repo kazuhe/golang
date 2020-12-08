@@ -127,4 +127,10 @@ func main() {
 	 */
 	// ./array.go
 	arrayTest()
+
+	/*
+	* interface{}とnil
+	 */
+	// ./interface.go
+	interfaceTest()
 }
