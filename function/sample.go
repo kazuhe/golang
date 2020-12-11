@@ -37,3 +37,9 @@ func div(a, b int) (int, int) {
 	r := a % b
 	return q, r
 }
+
+// エラー処理確認の為の仮func
+func doError() (string, error) {
+	msg := "エラー発生"
+	return "実行", fmt.Errorf("%s", msg)
+}
