@@ -43,3 +43,31 @@ func doError() (string, error) {
 	msg := "エラー発生"
 	return "実行", fmt.Errorf("%s", msg)
 }
+
+/*
+* 戻り値を表す変数
+ */
+// 戻り値xはreturnで返していないが、0の値を持った変数xが返される
+func doSomething() (x, y int) {
+	y = 5
+	return // → 0 5
+}
+
+// 上記の関数は↓の関数を短縮している
+func doSomething2() (int, int) {
+	var x, y int
+	y = 5
+	return x, y // → 0 5
+}
+
+// つまり、戻り値に変数を持たせた場合は関数内で変数を定義しなくても
+// returnで初期値を返すことができる
+
+/*
+* 関数を返す関数
+ */
+func returnFunc() func() {
+	return func() {
+		fmt.Println("I'm a function")
+	}
+}

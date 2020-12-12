@@ -29,4 +29,31 @@ func main() {
 	// 第二引数のerrでエラーの有無を表す
 	// これはGoの一種のイディオムで頻出する表現
 	// 変数名がerrなのも慣例となっているのでこの形式に従う
+
+	/*
+	* 戻り値を表す変数
+	 */
+	fmt.Println(doSomething())
+	fmt.Println(doSomething2())
+
+	/*
+	* 無名関数
+	 */
+	// Goは関数を値として表現する無名関数が書ける
+	f := func(x, y int) int { return x + y }
+	fmt.Println(f(1, 2))
+	// 型は→ func(int, int) int
+	fmt.Printf("%T\n", func(x, y int) int { return x + y })
+
+	// 無名関数にそのままパラメータを与えて呼び出すことも可能
+	fmt.Printf("%v\n", func(x, y int) int { return x + y }(5, 5))
+
+	/*
+	* 関数を返す関数
+	 */
+	rf := returnFunc()
+	rf()
+
+	// returnFunc()の戻り値の関数をそのまま呼び出す場合は
+	returnFunc()()
 }
