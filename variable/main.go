@@ -101,4 +101,10 @@ func main() {
 	)
 
 	fmt.Println(muni, puni, nnn, sss)
+
+	/*
+	* 定数
+	 */
+	// ./const.go
+	constSample()
 }
