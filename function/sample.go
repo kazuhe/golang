@@ -71,3 +71,39 @@ func returnFunc() func() {
 		fmt.Println("I'm a function")
 	}
 }
+
+/*
+* 関数を引数にとる関数
+ */
+func callFunc(f func()) {
+	// 受け取った引数の関数をそのまま実行する
+	f()
+}
+
+/*
+* クロージャとしての無名関数
+ */
+// 変数storeはクロージャ内から参照されているので破棄されない
+func later() func(string) string {
+	// 1つ前に与えられた文字列を保存する為の変数
+	var store string
+	// 引数に文字列をとり文字列を返す関数を返す
+	return func(next string) string {
+		s := store
+		store = next
+		return s
+	}
+}
+
+/*
+* クロージャによるジェネレータの実装
+ */
+// Goにはジェネレータ昨日は存在しないがクロージャを応用して
+// ジェネレータの様に振舞うことができる
+func integers() func() int {
+	i := 0
+	return func() int {
+		i++
+		return i
+	}
+}

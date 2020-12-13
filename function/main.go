@@ -56,4 +56,30 @@ func main() {
 
 	// returnFunc()の戻り値の関数をそのまま呼び出す場合は
 	returnFunc()()
+
+	/*
+	* 関数を引数にとる関数
+	 */
+	callFunc(func() { fmt.Println("Call Function!") })
+
+	/*
+	* クロージャとしての無名関数
+	 */
+	lf := later()
+
+	fmt.Println(lf("lf 1回目の呼び出し"))
+	fmt.Println(lf("lf 2回目の呼び出し"))
+	fmt.Println(lf("lf 3回目の呼び出し"))
+
+	/*
+	* クロージャによるジェネレータの実装
+	 */
+	ints := integers()
+
+	fmt.Println(ints())
+	fmt.Println(ints())
+	fmt.Println(ints())
+
+	otherInts := integers()
+	fmt.Println(otherInts())
 }
