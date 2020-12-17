@@ -107,4 +107,8 @@ func main() {
 	 */
 	// ./const.go
 	constSample()
+
+	// ファイルが分割されていても定数や変数は相互に参照可能
+	// ./one.go の変数「two」を参照
+	fmt.Println(two)
 }
