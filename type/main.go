@@ -133,4 +133,33 @@ func main() {
 	 */
 	// ./interface.go
 	interfaceTest()
+
+	/*
+	* 型アサーション
+	 */
+	// ./assertion.go
+	// interface{}を引数とした全ての型と互換性がある関数
+	anything(100)
+	anything("ABC")
+	anything(3.14)
+
+	// 「x.(T)」を使って型アサーションする
+	// i, isInt := x.(int)
+	// ↑ 1番目の変数にはxの値が代入され、2番目の変数にはbool値(アサーションが成功すればtrue)が代入される
+	// この型アサーションを使ってif分で型判定を行う
+	x := interface{}("型アサーション")
+	if x == nil {
+		fmt.Println("x is nil")
+	} else if i, isInt := x.(int); isInt {
+		fmt.Printf("x is integer: %d\n", i)
+	} else if s, isString := x.(string); isString {
+		fmt.Printf("x is string: %s\n", s)
+	}
+
+	// 「x.(T)」で1つの変数に代入する場合はxの値のみが代入される
+	// ここで、型アサーションに失敗した場合にはランタイムエラーが発生するので、
+	// 前述した変数を2つ与えた型アサーションをおこなう事が多い
+	// foo := x.(int) ←xはint型にはなりえないので、エラーとなる
+	foo := x.(string)
+	fmt.Println(foo)
 }
