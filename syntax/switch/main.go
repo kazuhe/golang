@@ -58,4 +58,35 @@ func main() {
 		fmt.Println("3 < num < 6")
 	}
 
+	/*
+	 * 型によるswitch文
+	 */
+	// 型アサーションと分岐を組み合わせた処理を手軽に書ける
+	x := interface{}(7)
+	switch x.(type) {
+	case bool:
+		fmt.Println("bool")
+	case int, uint:
+		fmt.Println("integer or unsigned interger")
+	case string:
+		fmt.Println("string")
+	default:
+		fmt.Println("don't know")
+	}
+
+	// 値も必要であれば変数に代入する
+	// 一致しないcase節は実行されないので、
+	// 型アサーションに失敗してランタイムエラーになる事がない
+	switch v := x.(type) {
+	case bool:
+		fmt.Println("bool:", v)
+	// case int, uint: ← 1つの型に定まらないのでエラー
+	case int:
+		fmt.Println(v * v)
+	case string:
+		fmt.Println("string:", v)
+	default:
+		fmt.Println("don't know:", v)
+	}
+	// ↑の様に変数に値を格納する場合はcase節で複数の型を列挙するのは控えた方が良い
 }
