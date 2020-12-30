@@ -159,4 +159,57 @@ func main() {
 	s17 := a4[2:4:6]      // [3 4]
 	fmt.Println(len(s17)) // 2
 	fmt.Println(cap(s17)) // 4
+
+	/*
+	* スライスとfor
+	 */
+	// rangeを使った範囲節によって要素数を気にせずにループ
+	s18 := []string{"Apple", "Banana", "Cherry"}
+
+	for i, v := range s18 {
+		fmt.Printf("[%d] => %s\n", i, v)
+	}
+	// [0] => Apple
+	// [1] => Banana
+	// [2] => Cherry
+
+	// for i := 0; i < len(s18); i++ { s18 = append(s18, "Melon") }
+	// ↑だと各ループ事に条件式が評価されるので、i < len(s18)が常にtrueと評価され無限ループになってしまう
+
+	// rangeによってループ処理を書くとループ開始時の要素数（この例だと3）に対してappendを行う
+	for i, v := range s18 {
+		fmt.Printf("[%d] => %s\n", i, v)
+		s18 = append(s18, "Melon")
+	}
+	// [0] => Apple
+	// [1] => Banana
+	// [2] => Cherry
+	fmt.Println(s18) // [Apple Banana Cherry Melon Melon Melon]
+
+	// スライスの全要素に対してのループ処理なら、出来る限り副作用の少ない「範囲節によるfor」を利用すべき
+
+	/*
+	* スライスと可変長引数
+	 */
+	fmt.Println(sum(1, 2, 3)) // 6
+	fmt.Println(sum())        // 0
+
+	// スライスを可変長引数として使う
+	s19 := []int{1, 2, 3, 4, 5}
+	fmt.Println(sum(s19...)) // 15
+	// ↑の様に引数のスライスに「...」を付加すると、スライスの要素を可変長引数として展開できる
+}
+
+/*
+* スライスと可変長引数
+ */
+// s ...int の引数は全ての値を[]int型のスライスにまとまる指定として機能する
+// 関数における可変長引数は「引数の末尾に1つだけ定義できる」制限がある
+// その為、複数の可変長引数を定義することは不可能
+func sum(s ...int) int {
+	n := 0
+	for _, v := range s {
+		n += v
+	}
+	return n
 }
