@@ -137,4 +137,18 @@ func main() {
 	// 第1引数: チャネル内の値 第2引数: チャネルの「バッファ内が空でかつクローズされた状態」であればfalse
 	i, ok := <-ch7
 	fmt.Println(i, ok) // 0 false
+
+	/*
+	* チャネルとfor(range)
+	 */
+	// チャネルからひたすらrangeによって受信し続けることもできるが、クローズを検出するタイミングが得られずエラーになる
+	ch8 := make(chan int, 3)
+	ch8 <- 111
+	ch8 <- 222
+	ch8 <- 333
+	// for i := range ch8 {
+	// 	fmt.Println(i)
+	// }
+	// ↑ fatal error: all goroutines are asleep - deadlock!
+
 }
