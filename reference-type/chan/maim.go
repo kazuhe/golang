@@ -151,4 +151,83 @@ func main() {
 	// }
 	// ↑ fatal error: all goroutines are asleep - deadlock!
 
+	/*
+	* select
+	 */
+	// 1つのチャネルが受信待ちの状態で停止してしまうとその後に記述されたチャネルはいつまでも受信できない
+	// そんな問題を解決する為に複数のチャネルをコントロールするselect構文が用意されている
+	// select分のcase節の式はすべてチャネルへの処理を伴っている必要がある
+
+	// チャネルへの処理とは
+	// <-ch による受信処理
+	// ch <- e による送信処理
+	// ch1 <- ch2 の様なチャネル間を直接繋ぐ処理
+
+	ch9 := make(chan int, 1)
+	ch10 := make(chan int, 1)
+	ch11 := make(chan int, 1)
+	ch9 <- 9
+	ch10 <- 10
+
+	select {
+	case e9 := <-ch9:
+		// ch9から受信が成功した場合に処理される
+		fmt.Println(e9)
+		fmt.Println("ch9から受信")
+	case e10 := <-ch10:
+		// ch10から受信が成功した場合に処理される
+		fmt.Println(e10)
+		fmt.Println("ch10から受信")
+	case ch11 <- 11:
+		// ch11へ送信が成功した場合に処理される
+		fmt.Println(<-ch11)
+		fmt.Println("ch11へ送信")
+	default:
+		// case節の条件が成立しなかった場合に処理される
+		fmt.Println("ここへは到達しない")
+	}
+	// switchと違い、selectは複数のcase節の処理が可能な場合にはランダムに選択して処理する
+
+	/*
+	* 複数のチャネルと複数のゴルーチンにselect文を組み合わせた処理
+	 */
+	// 各々非同期に処理されるチャネルのデータを適切に処理できていることが確認できる
+	// ch12 から ch13 から ch14 へ非同期で値を渡して出力しているだけ
+
+	ch12 := make(chan int)
+	ch13 := make(chan int)
+	ch14 := make(chan int)
+
+	// ch12から受信した整数を2倍してch13へ送信
+	go func() {
+		for {
+			i := <-ch12
+			ch13 <- (i * 2)
+		}
+	}()
+
+	// ch13から受信した整数を1減産してch14へ送信
+	go func() {
+		for {
+			i := <-ch13
+			ch14 <- (i - 1)
+		}
+	}()
+
+	n := 1
+LOOP:
+	for {
+		select {
+		// 整数を増分させつつch12へ送信
+		case ch12 <- n:
+			n++
+		// ch14から受信した整数を出力
+		case i := <-ch14:
+			fmt.Println("received!! ->", i)
+		default:
+			if n > 30 {
+				break LOOP
+			}
+		}
+	}
 }
