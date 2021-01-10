@@ -30,6 +30,10 @@ func main() {
 	// %Tはデータの型情報を埋め込む
 	fmt.Printf("数値=%T 文字列=%T 配列=%T\n", 5, "Golang", [...]int{1, 2, 3})
 
+	// %pはアドレスの具体的な値を埋め込む
+	i := 5
+	fmt.Printf("Address=%p\n", &i) // Address=0xc0000b4008
+
 	/*
 	* print, println
 	 */
