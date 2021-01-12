@@ -103,4 +103,90 @@ func main() {
 	// 可読性と柔軟性を考慮して基本的には明示的に指定する方法で記述するべき
 	pt4 := Point{Y: 33}
 	fmt.Println(pt4.X, pt4.Y) // 0 33
+
+	/*
+	 * 構造体を含む構造体
+	 */
+	// ＊フィールド名のある埋め込み構造体
+	// 先頭が英大文字の英数字によるフィールド名がGoの慣例
+	type Feed struct {
+		Name   string
+		Amount uint
+	}
+
+	type Animal struct {
+		Name string
+		Feed Feed
+	}
+	// ↑の Feed Feed の定義を
+	// type Animal struct {
+	// 	Name string
+	// 	Feed
+	// }
+	// ↑のように省略することができる
+	// この場合、「フィールド名が一意に定まる」の条件にクリアしたフィールドは「a.Amount」のように中間フィールド名を省略することができる
+
+	a := Animal{
+		Name: "Monkey",
+		Feed: Feed{
+			Name:   "Banana",
+			Amount: 10,
+		},
+	}
+
+	// a.Feed.Name のように階層的にたどってアクセスすることができる
+	fmt.Println(a.Name)        // Monkey
+	fmt.Println(a.Feed.Name)   // Banana
+	fmt.Println(a.Feed.Amount) // 10
+
+	a.Feed.Amount = 15
+	fmt.Println(a.Feed.Amount) // 15
+
+	// フィールド名を省略した埋め込み構造体は異なる構造体型に共通の性質をもたせることができる
+	type Base struct {
+		ID    int
+		Owner string
+	}
+
+	type A struct {
+		Base // 共通フィールド
+		Name string
+		Area string
+	}
+
+	type B struct {
+		Base   // 共通フィールド
+		Title  string
+		Bodies []string
+	}
+
+	sa := A{
+		Base: Base{17, "taro"},
+		Name: "Taro",
+		Area: "Tokyo",
+	}
+
+	sb := B{
+		Base:   Base{81, "Hanako"},
+		Title:  "no title",
+		Bodies: []string{"A", "B"},
+	}
+
+	fmt.Println(sa)    // {{17 taro} Taro Tokyo}
+	fmt.Println(sa.ID) // 17
+
+	fmt.Println(sb)    // {{81 Hanako} no title [A B]}
+	fmt.Println(sb.ID) // 81
+
+	// ＊暗黙的にフィールドの注意点
+	// ↓ ポインタ型の修飾子やパッケージ名のプリフィックス部分は無視され純粋な型名の部分が暗黙的なフィールド名として利用される
+
+	// struct {
+	// 	T1    // フィールド名は「T1」
+	// 	*T2   // フィールド名は「T2」
+	// 	P.T3  // フィールド名は「T3」
+	// 	*P.T4 // フィールド名は「T4」
+	// }
+
+	// また、構造体のフィールドに構造体自身の型を埋め込むような再起的な定義はコンパイルエラーとなる
 }
