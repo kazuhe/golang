@@ -213,4 +213,31 @@ func main() {
 	p2 := &DoubleInt{X: 5, Y: 10}
 	pointerSwap(p2)
 	fmt.Println(p2.X, p2.Y) // 10 5
+
+	/*
+	* new
+	 */
+	// 指定した型のポインタ型を生成する
+	// &演算子を使った複合リテラルによる構造体型のポインタ生成（&DoubleInt{X: 5, Y: 10}）とnewは動作上ほとんど違いがない
+	// 状況に応じて使い分ける必要がある
+	type Person struct {
+		ID   int
+		Name string
+		Area string
+	}
+	p3 := new(Person)
+
+	fmt.Printf("%v\n", p3.ID)   // 0
+	fmt.Printf("%v\n", p3.Name) // ""
+	fmt.Printf("%v\n", p3.Area) // ""
+
+	/*
+	* メソッド
+	 */
+	// オブジェクト指向言語によくあるメソッドとは異なる
+	// 任意の型に特化した関数を定義する為の仕組み
+
+	// メソッドの定義
+	rendarCall()
+	distanceCall()
 }
