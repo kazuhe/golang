@@ -40,3 +40,37 @@ func distanceCall() {
 }
 
 // 同一パッケージ内に同名の関数を複数定義することはできないが、メソッドはレシーバーの型さえ異なっていれば複数定義できる
+
+/*
+* エイリアスのメソッド定義
+ */
+// メソッドは↓のようなエイリアスにも定義できる
+type MyInt int
+
+// Plus 型エイリアスの値と関数の引数を合計させる
+func (m MyInt) Plus(i int) int {
+	return int(m) + i
+}
+
+func callPlus() {
+	fmt.Println(MyInt(4).Plus(2)) // 6
+}
+
+// Strings stringsのスライス
+type Strings []string
+
+// Join 文字列のスライスを区切り文字で連結するメソッド
+func (s Strings) Join(d string) string {
+	sum := ""
+	for _, v := range s {
+		if sum != "" {
+			sum += d
+		}
+		sum += v
+	}
+	return sum
+}
+
+func callJoin() {
+	fmt.Println(Strings{"A", "B", "C"}.Join(",")) // A,B,C
+}

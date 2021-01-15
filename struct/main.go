@@ -240,4 +240,7 @@ func main() {
 	// メソッドの定義
 	rendarCall()
 	distanceCall()
+	callPlus()
+	callJoin()
+
 }
