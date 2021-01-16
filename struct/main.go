@@ -243,4 +243,9 @@ func main() {
 	callPlus()
 	callJoin()
 
+	/*
+	* 型のコンストラクタ
+	 */
+	callNewUser()
+
 }
