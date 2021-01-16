@@ -248,4 +248,9 @@ func main() {
 	 */
 	callNewUser()
 
+	/*
+	*  レシーバーとポインタ型
+	 */
+	callReceiver()
+
 }
