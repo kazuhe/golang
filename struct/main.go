@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+
+	"./foo"
 )
 
 func main() {
@@ -252,5 +254,36 @@ func main() {
 	*  レシーバーとポインタ型
 	 */
 	callReceiver()
+
+	/*
+	* フィールドとメソッドの可視性
+	 */
+	foo := &foo.T{Field1: 7}
+	// foo := &foo.T{Field1: 7, field2: 9} → コンパイルエラー "field2"にはセットできない
+
+	fmt.Println(foo.Method1()) // 7 → 呼び出し可能
+	fmt.Println(foo.Field1)    // 7 → 呼び出し可能
+
+	// fmt.Println(foo.method2()) // → コンパイルエラー
+	// fmt.Println(foo.field2)   // → コンパイルエラー
+
+	/*
+	* スライスと構造体
+	 */
+	// スライスと構造体の組み合わせはGoの頻出パターンで、組み込み関数のmakeと構造体型を組み合わせて構造体型のスライスを作れる
+	// 組み込み関数のnewなどを使って個別に構造体を生成するよりまとめてメモリ領域を確保するほうがメモリ効率や実行効率の面で有利
+	ps := make([]Point, 5)
+	for _, p := range ps {
+		fmt.Println(p.X, p.Y)
+	}
+
+	// 出力結果
+	// 0 0
+	// 0 0
+	// 0 0
+	// 0 0
+	// 0 0
+
+	callSlice()
 
 }
