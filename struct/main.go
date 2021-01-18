@@ -286,4 +286,9 @@ func main() {
 
 	callSlice()
 
+	/*
+	* タグ
+	 */
+	callTag()
+
 }
