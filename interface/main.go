@@ -11,4 +11,9 @@ func main() {
 	* 代表的なインターフェース error
 	 */
 	callMyError()
+
+	/*
+	* インターフェースのメリット
+	 */
+	callStringify()
 }

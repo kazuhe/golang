@@ -9,11 +9,11 @@ import (
  */
 
 // 組み込み型error ↓ はインターフェースで、文字列を返すメソッドのErrorのみが定義されている
-/*
+/* ====================
 type error interface {
 	Error() string
 }
-*/
+==================== */
 
 // errorインターフェースを実装した型を定義してみる↓流れ
 
@@ -42,4 +42,10 @@ func RaiseError() error {
 func callMyError() {
 	err := RaiseError()
 	fmt.Println(err.Error()) // エラーが発生しました
+
+	// 変数errから本来の型であるMyError型を取り出したいときは型アサーションを使用する
+	e, ok := err.(*MyError)
+	if ok {
+		fmt.Println(e.ErrCode) // 1234
+	}
 }
