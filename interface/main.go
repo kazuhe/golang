@@ -16,4 +16,17 @@ func main() {
 	* インターフェースのメリット
 	 */
 	callStringify()
+
+	/*
+	* インターフェースを含むインターフェース
+	 */
+	// 「インターフェースI1」は「インターフェースI0」を含んでいる為、I1が要求するメソッドは「Method1とMethod2」の2つになる
+	type I0 interface {
+		Method1() int
+	}
+
+	type I1 interface {
+		I0 // インターフェースI0を含む
+		Method2() int
+	}
 }
