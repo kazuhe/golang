@@ -5,7 +5,7 @@ import (
 )
 
 func TestElephantFeed(t *testing.T) {
-	expect := "Noodle"
+	expect := "Grass"
 	actual := ElephantFeed()
 
 	if expect != actual {
